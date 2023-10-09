@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Frontend Mentor | Age calculator app</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'Inter': ['Inter', 'sans-serif']
+          },
+          colors: {
+            bgcolor: 'hsl(0, 0%, 86%)',
+            smokey: 'hsl(0, 1%, 44%)',
+            inputBorder: 'hsl(0, 0%, 86%)',
+            purple: 'hsl(259, 100%, 65%)',
+            offBlack: 'hsl(0, 0%, 8%)',
+            red: 'hsl(0, 100%, 67%)',
+            black: '#000',
+          },
+          borderRadius: {
+            r4xl: '10em',
+          },
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-bgcolor  font-Inter font-semibold flex justify-center items-center min-h-screen p-4">
+
+  <section class="bg-white w-full md:w-3/6 mx-auto rounded-2xl mt-10 p-6 md:p-14 rounded-br-r4xl">
+    <div class="flex flex-row space-x-4">
+      <div class="flex flex-col text-sm font-bold md:font-semibold w-28">
+        <label for="day" class="text-smokey">DAY</label>
+        <input type="number" min=1 max="31" value="25" id="day" placeholder="DD"
+          class="text-black border text-xl md:text-3xl border-inputBorder rounded-lg py-3 pl-4 pl-2 mt-1 font-bold " />
+      </div>
+      <div class="flex flex-col text-sm font-bold md:font-semibold w-28">
+        <label for="month" class="text-smokey">MONTH</label>
+        <input type="number" min=1 max="12" value="11" id="month" placeholder="MM"
+          class="text-black border text-xl md:text-3xl  border-inputBorder rounded-lg py-3 pl-4 pl-2 mt-1 font-bold" />
+      </div>
+      <div class="flex flex-col text-sm font-bold md:font-semibold w-28 md:w-36">
+        <label for="day" class="text-smokey">YEAR</label>
+        <input type="number" min=1900 id="year" value="1996" max="2023" placeholder="YYYY"
+          class="text-black border text-xl md:text-3xl  border-inputBorder rounded-lg py-3 pl-4 pl-2 mt-1 font-bold" />
+      </div>
+    </div>
+    <!-- <button id="submit" class="border border-smokey px-3 py-1 mt-3 text-offBlack">Calculate</button> -->
+   <div class="flex flex-row items-center">
+     <hr class="mt-7   w-full">
+    <img id="submit"  src="./assets/images/icon-arrow.svg" class="border cursor-pointer bg-purple rounded-full mt-8 mb-4 md:mb-0 md:mt-0 p-3 md:p-5 " alt="calculate button">
+    <hr class="mt-7   w-full md:hidden">
+   </div>
+    <div class="text-4xl md:text-8xl italic font-extrabold mt-3 ">
+      <div>
+        <span class="text-purple" id="years">--</span>
+        <span class="text-offBlack">years</span>
+      </div>
+      <div>
+        <span class="text-purple" id="months">--</span>
+        <span  class="text-offBlack ">months</span>
+      </div>
+      <div>
+        <span class="text-purple" id="days">--</span>
+        <days class="text-offBlack">days</span>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    let calculate = document.querySelector("#submit");
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      let dayInput = document.querySelector('#day').value;
+      let monthInput = document.querySelector('#month').value;
+      let yearInput = document.querySelector('#year').value;
+      let days = document.querySelector('#days');
+      let months = document.querySelector('#months');
+      let years = document.querySelector('#years');
+
+      const birthday = new Date(yearInput, monthInput, dayInput);
+      const today = new Date().getTime();
+      const timeDiff = today - birthday;
+      let daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      let monthsDiff = Math.floor(daysDiff / 30.44);
+      let yearsDiff = Math.floor(monthsDiff / 12);
+      days.innerHTML = daysDiff % 24 ;
+      months.innerHTML = monthsDiff % 12 ;
+      years.innerHTML = yearsDiff;
+
+    }
+    calculate.addEventListener('click', handleSubmit, false);
+
+
+
+  </script>
+</body>
+
+</html>
